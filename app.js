@@ -48,8 +48,8 @@ app.get("/", function(req, res) {
     } else {
 
       if (works.length == 0) {
-        Work.insertMany([id1,id2,id3], function(err){
-          if(err){
+        Work.insertMany([id1, id2, id3], function(err) {
+          if (err) {
             console.log(err);
           } else {
             res.redirect("/");
@@ -66,12 +66,6 @@ app.get("/", function(req, res) {
 });
 
 
-
-
-
-
-
-
 // POST FUNCTION
 
 app.post("/", function(req, res) {
@@ -79,7 +73,7 @@ app.post("/", function(req, res) {
   const newAdded = req.body.newItem;
 
   const inputed = new Work({
-    name : newAdded
+    name: newAdded
   });
 
   inputed.save();
@@ -87,19 +81,24 @@ app.post("/", function(req, res) {
   res.redirect("/");
 });
 
-app.post("/delete", function(req,res){
+app.post("/delete", function(req, res) {
 
   const deleted = req.body.checkbox;
-  Work.deleteOne({_id : deleted},function(err){
-    if(err){
+  Work.deleteOne({
+    _id: deleted
+  }, function(err) {
+    if (err) {
       console.log(err);
-    }else{
+    } else {
       res.redirect("/");
     }
   })
 })
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
-
-app.listen(3000, function() {
-  console.log("Server is running on port 3000");
-})
+app.listen(port, function() {
+  console.log("Server started succesfully");
+});
